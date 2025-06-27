@@ -32,7 +32,6 @@ num_fewshot=5
 
 logs_dir="eval_${task}_${num_fewshot}shot_length${length}_dualcache_parallel_logs"
 
-# Create logs directory
 rm -rf ${logs_dir}
 mkdir -p ${logs_dir}
 
@@ -40,13 +39,9 @@ echo "Starting grid search for block_length and steps parameters..."
 echo "Base length: ${length}"
 echo "================================"
 
-# Generate block_length values: 4, 8, 16, 32, 64, 128, ... (stop when >= length)
 block_length=4
 while [ $block_length -le $length ]; do
-    # Calculate base steps (length / block_length)
     base_steps=$((length / block_length))
-    
-    # Test steps from base_steps to length, doubling each time
     steps=$base_steps
     while [ $steps -le $length ]; do
         echo "Testing: block_length=${block_length}, steps=${steps}"
@@ -60,12 +55,8 @@ while [ $block_length -le $length ]; do
         
         echo "Results saved to: ${logfile}"
         echo "--------------------------------"
-        
-        # Double the steps for next iteration
         steps=$((steps * 2))
     done
-    
-    # Double the block_length for next iteration
     block_length=$((block_length * 2))
 done
 

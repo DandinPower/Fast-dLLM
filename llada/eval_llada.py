@@ -349,7 +349,7 @@ class LLaDAEvalHarness(LM):
             print(f"Total number of tokens generated: {num_tokens}")
             print(f"Total time taken: {end_time - start_time} seconds")
             print(f"Total NFE is {num_nfe}")
-            print(f"Average NFE per question: {num_nfe / len(req)}")
+            print(f"Average NFE per question: {num_nfe / len(requests)}")
             print(f"Tokens per second: {num_tokens / (end_time - start_time)}")
         return output
 
