@@ -22,9 +22,9 @@ Sub Program: Phison 2025.26 Proposal
 | Variable | Typical Range | Hypothesised Effect |
 | --- | --- | --- |
 | **denoising_step** | 16 - 256 | More steps ⇒ ↑ accuracy, ↓ throughput |
-| **block_size** | 4 - 64 | Larger block ⇒ ↑ throughput, but may slightly ↓ accuracy |
+| **block_size** | 4 - 256 | Larger block ⇒ ↑ throughput, but may slightly ↓ accuracy |
 
-Other factors (decoding strategy, GPUs, generation length=512?, threshold=0.9? precision, …) must be fixed (can be fixed by paper recommend).
+Other factors (decoding strategy, GPUs, generation length=256?, threshold=0.9? precision, …) must be fixed (can be fixed by paper recommend).
 
 ---
 

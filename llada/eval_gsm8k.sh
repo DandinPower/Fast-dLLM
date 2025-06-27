@@ -3,10 +3,11 @@ export HF_ALLOW_CODE_EVAL=1
 export HF_DATASETS_TRUST_REMOTE_CODE=true
 
 task=gsm8k
-length=32
+length=256
 block_length=32
-num_fewshot=1
-steps=$((length / block_length))
+num_fewshot=5
+steps=8
+# steps=$((length / block_length))
 
 # # baseline
 # accelerate launch eval_llada.py --tasks ${task} --num_fewshot ${num_fewshot} \
