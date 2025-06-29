@@ -59,19 +59,20 @@ while [ $block_length -le $length ]; do
 done
 
 echo "================================"
-echo "Benchmarking variable step count with fixed block_length=32"
+echo "Benchmarking variable threshold with fixed block_length=32"
 block_length=32
 steps=$((length / block_length))
-while [ $steps -le $length ]; do
-    echo "Evaluating block_length=${block_length}, steps=${steps}"
-    logfile="${logs_dir}/steps${steps}_block${block_length}_th0.9.log"
+thresholds=("0.5" "0.6" "0.7" "0.8" "0.9" "1.0")
+for threshold in "${thresholds[@]}"
+do
+    echo "Evaluating block_length=${block_length}, threshold=${threshold}"
+    logfile="${logs_dir}/steps${steps}_block${block_length}_th${threshold}.log"
     
     accelerate launch eval_llada.py --tasks ${task} --num_fewshot ${num_fewshot} \
         --confirm_run_unsafe_code --model llada_dist \
-        --model_args model_path='GSAI-ML/LLaDA-8B-Instruct',gen_length=${length},steps=${steps},block_length=${block_length},use_cache=True,dual_cache=True,threshold=0.9,show_speed=True \
+        --model_args model_path='GSAI-ML/LLaDA-8B-Instruct',gen_length=${length},steps=${steps},block_length=${block_length},use_cache=True,dual_cache=True,threshold=${threshold},show_speed=True \
         2>&1 | tee ${logfile}
     
     echo "Results saved to: ${logfile}"
     echo "--------------------------------"
-    steps=$((steps * 2))
 done
